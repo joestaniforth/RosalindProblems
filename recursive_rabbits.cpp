@@ -1,6 +1,7 @@
 #include <iostream>
+typedef unsigned long long ull;
 
-unsigned long long recursive_rabbits(unsigned long long n, unsigned long long k){
+ull recursive_rabbits(ull n, ull k){
     if (n == 1 || n == 2)
     {
         return 1;
@@ -16,10 +17,10 @@ unsigned long long recursive_rabbits(unsigned long long n, unsigned long long k)
 
 int main(int argc, char* argv [])
 {
-    unsigned long long n;
-    unsigned long long k;
+    ull n;
+    ull k;
 
-    unsigned long long numberOfRabbits;
+    ull numberOfRabbits;
 
     n = std::strtoull(argv[1], 0, 10);
     k = std::strtoull(argv[2], 0, 10);
