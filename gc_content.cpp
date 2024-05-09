@@ -1,20 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-
-struct baseCounter
-{
-    int A = 0;
-    int T = 0;
-    int G = 0;
-    int C = 0;
-};
-
+#include "base.h"
 
 int main(int argc, char *argv[]){
     std::string sequence;
     std::string filepath;
-    baseCounter gcContent;
+    baseTracker baseTracker;
     filepath = argv[1];
 
     std::ifstream seqFile;
@@ -30,16 +22,16 @@ int main(int argc, char *argv[]){
                 switch (base)
                 {
                 case 'A':
-                    gcContent.A+= 1;
+                    baseTracker.incrementA();
                     break;
                 case 'T':
-                    gcContent.T+= 1;
+                    baseTracker.incrementT();
                     break;
                 case 'C':
-                    gcContent.C+= 1;
+                    baseTracker.incrementC();
                     break;
                 case 'G':
-                    gcContent.G+= 1;
+                    baseTracker.incrementG();
                     break;
                 default:
                     break;
@@ -47,17 +39,17 @@ int main(int argc, char *argv[]){
             }
         }
         seqFile.close();
-        long sequenceLength;
-        long GCcount;
+        int GCcount;
+        int sequenceLength;
         float GCpercentage;
-        GCcount = gcContent.C + gcContent.G;
-        sequenceLength = gcContent.A + gcContent.T + gcContent.C + gcContent.G;
-        GCpercentage = (GCcount * 100) / sequenceLength;
+        GCcount = baseTracker.getC() + baseTracker.getG();
+        sequenceLength = baseTracker.sequenceLength();
+        GCpercentage = baseTracker.GCContent();
         std::cout << "Sequence is " << sequenceLength << " bases." << "\n";
-        std::cout << "A: " << gcContent.A << "\n";
-        std::cout << "T: " << gcContent.T << "\n";
-        std::cout << "C: " << gcContent.C << "\n";
-        std::cout << "G: " << gcContent.G << "\n";
+        std::cout << "A: " << baseTracker.getA() << "\n";
+        std::cout << "T: " << baseTracker.getT() << "\n";
+        std::cout << "C: " << baseTracker.getC() << "\n";
+        std::cout << "G: " << baseTracker.getG() << "\n";
         std::cout << "GC content is " << GCpercentage << "%" << " (" << GCcount << " of " << sequenceLength << " bases)" << "\n";
 
     }
